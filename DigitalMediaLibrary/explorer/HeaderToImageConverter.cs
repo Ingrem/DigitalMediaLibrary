@@ -16,13 +16,13 @@ namespace DigitalMediaLibrary.explorer
         {
             if ((value as string).Contains(@"\"))
             {
-                Uri uri = new Uri("pack://application:,,,/Images/diskdrive.png");
+                Uri uri = new Uri("pack://application:,,,/Imgs/diskdrive.png");
                 BitmapImage source = new BitmapImage(uri);
                 return source;
             }
             else
             {
-                Uri uri = new Uri("pack://application:,,,/Images/folder.png");
+                Uri uri = new Uri("pack://application:,,,/Imgs/folder.png");
                 BitmapImage source = new BitmapImage(uri);
                 return source;
             }
