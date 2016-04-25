@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;

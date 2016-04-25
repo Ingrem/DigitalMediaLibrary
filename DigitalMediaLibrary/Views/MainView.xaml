@@ -1,15 +1,15 @@
 ﻿<Window x:Class="DigitalMediaLibrary.Views.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Digital Media Library" Height="350" Width="525">
+        Title="Digital Media Library" Height="500" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <ContentControl Grid.Column="0" Name="DExpModel" Margin="10"></ContentControl>
-        <ContentControl  Grid.Column="1" Name="Win" Margin="10"></ContentControl>
+        <ContentControl Grid.Column="1" Name="DViewerModel" Margin="10"></ContentControl>
         <Rectangle Grid.Column="1" Width="100" Height="100" Fill="{Binding Color}"></Rectangle>
         </Grid>
 </Window>

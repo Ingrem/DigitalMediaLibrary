@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="explorer\HeaderToImageConverter.cs" />
     <Compile Include="ViewModels\DirExplorerViewModel.cs" />
+    <Compile Include="ViewModels\DirViewerViewModel.cs" />
     <Compile Include="Views\DirExplorerView.xaml.cs">
       <DependentUpon>DirExplorerView.xaml</DependentUpon>
     </Compile>
@@ -86,6 +87,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="explorer\ColorView.xaml.cs">
       <DependentUpon>ColorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DirViewerView.xaml.cs">
+      <DependentUpon>DirViewerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -136,6 +140,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\DirViewerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +152,14 @@
   <ItemGroup>
     <Resource Include="Imgs\diskdrive.png" />
     <Resource Include="Imgs\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imgs\file.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imgs\audio.png" />
+    <Resource Include="Imgs\movies.png" />
+    <Resource Include="Imgs\png.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

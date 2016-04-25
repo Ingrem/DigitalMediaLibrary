@@ -8,48 +8,48 @@ namespace DigitalMediaLibrary.Views
     /// <summary>
     ///     Interaction logic for DirExplorerView.xaml
     /// </summary>
-    public partial class DirExplorerView : UserControl
+    public partial class DirExplorerView
     {
-        private readonly object dummyNode = null;
+        private readonly object _dummyNode = null;
 
         public DirExplorerView()
         {
             InitializeComponent();
             foreach (var s in Directory.GetLogicalDrives())
             {
-                var item = new TreeViewItem();
-                item.Header = s;
-                item.Tag = s;
-                item.FontWeight = FontWeights.Normal;
-                item.Items.Add(dummyNode);
+                var item = new TreeViewItem {Header = s, Tag = s, FontWeight = FontWeights.Normal};
+                item.Items.Add(_dummyNode);
                 item.Expanded += folder_Expanded;
                 foldersItem.Items.Add(item);
             }
         }
 
-        public string SelectedImagePath { get; set; }
+        private string SelectedImagePath { get; set; }
 
         private void folder_Expanded(object sender, RoutedEventArgs e)
         {
             var item = (TreeViewItem) sender;
-            if (item.Items.Count == 1 && item.Items[0] == dummyNode)
+            if (item.Items.Count == 1 && item.Items[0] == _dummyNode)
             {
                 item.Items.Clear();
                 try
                 {
                     foreach (var s in Directory.GetDirectories(item.Tag.ToString()))
                     {
-                        var subitem = new TreeViewItem();
-                        subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
-                        subitem.Tag = s;
-                        subitem.FontWeight = FontWeights.Normal;
-                        subitem.Items.Add(dummyNode);
+                        var subitem = new TreeViewItem
+                        {
+                            Header = s.Substring(s.LastIndexOf("\\", StringComparison.Ordinal) + 1),
+                            Tag = s,
+                            FontWeight = FontWeights.Normal
+                        };
+                        subitem.Items.Add(_dummyNode);
                         subitem.Expanded += folder_Expanded;
                         item.Items.Add(subitem);
                     }
                 }
                 catch (Exception)
                 {
+                    // ignored
                 }
             }
         }
@@ -62,17 +62,16 @@ namespace DigitalMediaLibrary.Views
             if (temp == null)
                 return;
             SelectedImagePath = "";
-            var temp1 = "";
             var temp2 = "";
             while (true)
             {
-                temp1 = temp.Header.ToString();
+                var temp1 = temp.Header.ToString();
                 if (temp1.Contains(@"\"))
                 {
                     temp2 = "";
                 }
                 SelectedImagePath = temp1 + temp2 + SelectedImagePath;
-                if (temp.Parent.GetType().Equals(typeof (TreeView)))
+                if (temp.Parent.GetType() == typeof (TreeView))
                 {
                     break;
                 }

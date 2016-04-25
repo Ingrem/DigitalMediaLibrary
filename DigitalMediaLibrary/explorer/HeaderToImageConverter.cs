@@ -10,11 +10,11 @@ namespace DigitalMediaLibrary.explorer
     [ValueConversion(typeof(string), typeof(bool))]
     public class HeaderToImageConverter : IValueConverter
     {
-        public static HeaderToImageConverter Instance = new HeaderToImageConverter();
+        public static readonly HeaderToImageConverter Instance = new HeaderToImageConverter();
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((value as string).Contains(@"\"))
+            if (((string) value).Contains(@"\"))
             {
                 Uri uri = new Uri("pack://application:,,,/Imgs/diskdrive.png");
                 BitmapImage source = new BitmapImage(uri);
