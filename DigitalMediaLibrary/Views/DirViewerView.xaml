@@ -7,13 +7,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <Style x:Key="selectedDirStyle">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="True" >
-                    <Setter Property="StackPanel.Background" Value="Gray" ></Setter>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
 
         <Style TargetType="ListBoxItem">
             <Style.Resources>
@@ -24,15 +17,13 @@
 
         <!-- Style for folder/file name text block -->
         <Style x:Key="NormalTextBlockStyle">
-            <!--<Setter Property="TextBlock.Width" Value="120"></Setter>-->
-            <Setter Property="TextBlock.TextWrapping" Value="NoWrap"></Setter>
-            <Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis"></Setter>
-            <Setter Property="TextBlock.VerticalAlignment" Value="Center"></Setter>
-        </Style>
-
-        <!-- Style for folder/file type and size text block -->
-        <Style x:Key="FadedTextBlockStyle" BasedOn="{StaticResource NormalTextBlockStyle}">
-            <Setter Property="TextBlock.Foreground" Value="DimGray"></Setter>
+            <Setter Property="TextBlock.Width" Value="75"></Setter>
+            <Setter Property="TextBlock.Height" Value="35"></Setter>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"></Setter>
+            <Setter Property="TextBlock.TextTrimming" Value="WordEllipsis"></Setter>
+            <Setter Property="TextBlock.TextAlignment" Value="Center"></Setter>
+            <Setter Property="TextBlock.VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="TextBlock.FontWeight" Value="ExtraLight"></Setter>
         </Style>
 
         <!-- Data template for displaying a directory or a file -->
@@ -43,22 +34,17 @@
                    IsTabStop="True" BorderThickness="1" >
                 <Label.Content>
                     <DockPanel>
-                        <Image DockPanel.Dock="Left" VerticalAlignment="Center"
+                        <Image DockPanel.Dock="Top" VerticalAlignment="Center"
                                x:Name="img" 
-                               Margin="5" 
-                               Width="50" Height="50" />
+                               Margin="0" 
+                               Width="80" Height="80" />
                         <StackPanel DockPanel.Dock="Left" 
                                     VerticalAlignment="Center" HorizontalAlignment="Left" 
                                     x:Name="ObjInfoPanel">
                             <TextBlock x:Name="ObjName"
-                                       FontWeight="Bold" 
+                                       Margin="3"
                                        Text="{Binding Name}" 
                                        Style="{StaticResource NormalTextBlockStyle}"/>
-                            <TextBlock x:Name="ObjType"
-                                       Style="{StaticResource FadedTextBlockStyle}"/>
-                            <TextBlock x:Name="ObjSize"
-                                       HorizontalAlignment="Left"
-                                       Style="{StaticResource FadedTextBlockStyle}"/>
                         </StackPanel>
                     </DockPanel>
                 </Label.Content>
@@ -68,39 +54,22 @@
                     </ToolTip>
                 </Label.ToolTip>
             </Label>
+
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=ExpType}" Value="0">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/png.png"></Setter>
-                    <Setter Property="Text" TargetName="ObjType" Value="{Binding Ext}"></Setter>
-                    <Setter Property="Visibility" TargetName="ObjSize" Value="Visible"></Setter>
-                    <Setter Property="Text" TargetName="ObjSize" Value="{Binding Size}"></Setter>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=ExpType}" Value="1">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/movies.png"></Setter>
-                    <Setter Property="Text" TargetName="ObjType" Value="{Binding Ext}"></Setter>
-                    <Setter Property="Visibility" TargetName="ObjSize" Value="Visible"></Setter>
-                    <Setter Property="Text" TargetName="ObjSize" Value="{Binding Size}"></Setter>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=ExpType}" Value="2">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/audio.png"></Setter>
-                    <Setter Property="Text" TargetName="ObjType" Value="{Binding Ext}"></Setter>
-                    <Setter Property="Visibility" TargetName="ObjSize" Value="Visible"></Setter>
-                    <Setter Property="Text" TargetName="ObjSize" Value="{Binding Size}"></Setter>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=ExpType}" Value="3">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/file.png"></Setter>
-                    <Setter Property="Text" TargetName="ObjType" Value="{Binding Ext}"></Setter>
-                    <Setter Property="Visibility" TargetName="ObjSize" Value="Visible"></Setter>
-                    <Setter Property="Text" TargetName="ObjSize" Value="{Binding Size}"></Setter>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}" Value="True" >
-                    <!--<Setter Property="Foreground" TargetName="ObjName" Value="Gray" ></Setter>-->
-                    <Setter Property="Foreground" TargetName="ObjType" Value="Black" ></Setter>
-                    <Setter Property="Foreground" TargetName="ObjSize" Value="Black" ></Setter>
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
-
     </UserControl.Resources>
 
     <Grid>
@@ -111,16 +80,14 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="dirList"  
-                 ItemsSource="{Binding Path=CurrentItems}" 
+        <ListBox Name="CurrentItems"  
                  ItemTemplate="{StaticResource DirViewTemplate}" BorderThickness="0" 
                  HorizontalContentAlignment="Left" VerticalContentAlignment="Top" 
                  Grid.Column="0" Grid.Row="0" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 SelectedItem="{Binding Path=DirViewVM.CurrentItem,Mode=OneWayToSource}">
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" ItemWidth="220"></WrapPanel>
+                    <WrapPanel Orientation="Horizontal" ItemWidth="110" ItemHeight="130"></WrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>

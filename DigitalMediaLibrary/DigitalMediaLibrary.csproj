@@ -76,18 +76,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="explorer\DirInfo.cs" />
     <Compile Include="explorer\HeaderToImageConverter.cs" />
     <Compile Include="ViewModels\DirExplorerViewModel.cs" />
     <Compile Include="ViewModels\DirViewerViewModel.cs" />
     <Compile Include="Views\DirExplorerView.xaml.cs">
       <DependentUpon>DirExplorerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="explorer\ColorViewModel.cs" />
     <Compile Include="ViewModels\MainBootstrapper.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="explorer\ColorView.xaml.cs">
-      <DependentUpon>ColorView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\DirViewerView.xaml.cs">
       <DependentUpon>DirViewerView.xaml</DependentUpon>
     </Compile>
@@ -135,10 +132,6 @@
     <Page Include="Views\DirExplorerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="explorer\ColorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DirViewerView.xaml">
       <SubType>Designer</SubType>

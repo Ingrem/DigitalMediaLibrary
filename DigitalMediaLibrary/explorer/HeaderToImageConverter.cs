@@ -5,8 +5,6 @@ using System.Windows.Media.Imaging;
 
 namespace DigitalMediaLibrary.explorer
 {
-    #region HeaderToImageConverter
-
     [ValueConversion(typeof(string), typeof(bool))]
     public class HeaderToImageConverter : IValueConverter
     {
@@ -33,8 +31,4 @@ namespace DigitalMediaLibrary.explorer
             throw new NotSupportedException("Cannot convert back");
         }
     }
-
-    #endregion // DoubleToIntegerConverter
-
-
 }

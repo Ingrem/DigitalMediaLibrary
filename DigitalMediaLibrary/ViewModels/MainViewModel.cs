@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 
 namespace DigitalMediaLibrary.ViewModels
@@ -17,9 +16,8 @@ namespace DigitalMediaLibrary.ViewModels
         public DirExplorerViewModel DExpModel { get; private set; }
         public DirViewerViewModel DViewerModel { get; private set; }
 
-        public void Handle(Object message)
+        public void Handle(object message)
         {
-            
         }
     }
 }
