@@ -80,6 +80,7 @@
     <Compile Include="explorer\HeaderToImageConverter.cs" />
     <Compile Include="ViewModels\DirExplorerViewModel.cs" />
     <Compile Include="ViewModels\DirViewerViewModel.cs" />
+    <Compile Include="ViewModels\MediaPlayerViewModel.cs" />
     <Compile Include="Views\DirExplorerView.xaml.cs">
       <DependentUpon>DirExplorerView.xaml</DependentUpon>
     </Compile>
@@ -90,6 +91,9 @@
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MediaPlayerView.xaml.cs">
+      <DependentUpon>MediaPlayerView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MediaPlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

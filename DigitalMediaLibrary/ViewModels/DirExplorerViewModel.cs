@@ -14,6 +14,7 @@ namespace DigitalMediaLibrary.ViewModels
         }
 
         private static IEventAggregator _events;
+
         public static void ChangeDirEvent(string selectedImagePath)
         {
             _events.PublishOnUIThread(new DirInfo { Path = selectedImagePath });

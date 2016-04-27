@@ -15,7 +15,6 @@
             </Style.Resources>
         </Style>
 
-        <!-- Style for folder/file name text block -->
         <Style x:Key="NormalTextBlockStyle">
             <Setter Property="TextBlock.Width" Value="75"></Setter>
             <Setter Property="TextBlock.Height" Value="35"></Setter>
@@ -26,7 +25,6 @@
             <Setter Property="TextBlock.FontWeight" Value="ExtraLight"></Setter>
         </Style>
 
-        <!-- Data template for displaying a directory or a file -->
         <DataTemplate x:Key="DirViewTemplate">
             <Label HorizontalAlignment="Left" 
                    Background="Transparent" 
@@ -84,12 +82,13 @@
                  ItemTemplate="{StaticResource DirViewTemplate}" BorderThickness="0" 
                  HorizontalContentAlignment="Left" VerticalContentAlignment="Top" 
                  Grid.Column="0" Grid.Row="0" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding Path=SelecItem}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ItemWidth="110" ItemHeight="130"></WrapPanel>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
+        <TextBlock Name="TT" Height="100" VerticalAlignment="Bottom"></TextBlock>
     </Grid>
 </UserControl>

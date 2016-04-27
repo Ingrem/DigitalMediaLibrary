@@ -7,14 +7,17 @@ namespace DigitalMediaLibrary.ViewModels
     public class MainViewModel : PropertyChangedBase , IHandle<object>
     {
         [ImportingConstructor]
-        public MainViewModel(DirViewerViewModel dViewerModel, DirExplorerViewModel dExpModel, IEventAggregator events)
+        public MainViewModel(MediaPlayerViewModel mPlayerModel, DirViewerViewModel dViewerModel, DirExplorerViewModel dExpModel,
+            IEventAggregator events)
         {
             DExpModel = dExpModel;
             DViewerModel = dViewerModel;
+            MPlayerModel = mPlayerModel;
             events.Subscribe(this);
         }
         public DirExplorerViewModel DExpModel { get; private set; }
         public DirViewerViewModel DViewerModel { get; private set; }
+        public MediaPlayerViewModel MPlayerModel { get; private set; }
 
         public void Handle(object message)
         {

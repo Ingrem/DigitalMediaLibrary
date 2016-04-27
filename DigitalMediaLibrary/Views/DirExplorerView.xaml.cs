@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,8 +13,6 @@ namespace DigitalMediaLibrary.Views
     /// </summary>
     public partial class DirExplorerView
     {
-        private readonly object _dummyNode = null;
-        private string SelectedImagePath { get; set; }
         public DirExplorerView()
         {
             InitializeComponent();
@@ -28,9 +24,12 @@ namespace DigitalMediaLibrary.Views
                 item.Expanded += folder_Expanded;
                 foldersItem.Items.Add(item);
             }
-            //DeserializeTreeView(Properties.Resources.SaveExplorerXML);
+            DeserializeTreeView(Properties.Resources.SaveExplorerXML);
             Dispatcher.ShutdownStarted += Window_Closing;
         }
+
+        private readonly object _dummyNode = null;
+        private string SelectedImagePath { get; set; }
 
         private void folder_Expanded(object sender, RoutedEventArgs e)
         {
@@ -110,8 +109,8 @@ namespace DigitalMediaLibrary.Views
 
         private void TreeRunner(XmlTextWriter wr, TreeViewItem dataNode)
         {
-          //  if (dataNode.Items[0] != null)
-          if (true)
+            if (dataNode.Items.Count>0)
+            if (dataNode.Items[0] != null)
             {
                 wr.WriteStartElement("Node");
                 wr.WriteAttributeString("Node", dataNode.Header.ToString());
@@ -135,8 +134,6 @@ namespace DigitalMediaLibrary.Views
                         if (reader.Name == "Node")
                         {
                             reader.MoveToAttribute("Node");
-                            //  foldersItem.RaiseEvent(new RoutedEventArgs(Header.ClickEvent));
-                           // typeof(TreeViewItem).GetMethod("set_IsPressed", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(SomeButton, new object[] { true });
                            // foldersItem.FindName("reader.Value");
                            //  folder_Expanded(foldersItem.Items[1],new RoutedEventArgs());
                         }
