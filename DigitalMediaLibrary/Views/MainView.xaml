@@ -1,15 +1,27 @@
 ﻿<Window x:Class="DigitalMediaLibrary.Views.MainView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="http://www.caliburnproject.org"
              Title="Digital Media Library" Height="500" Width="1300">
+
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="550"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="{Binding ViewerWidth}"/>
+            <ColumnDefinition Width="{Binding PlayerWidth}"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Column="0" Name="DExpModel" Margin="10"></ContentControl>
-        <ContentControl Grid.Column="1" Name="DViewerModel" Margin="10"></ContentControl>
-        <ContentControl Grid.Column="2" Name="MPlayerModel" Margin="10"></ContentControl>
+        <ContentControl Grid.Column="0" Name="DExpModel"
+                        Margin="10" Visibility="{Binding ExpVisibility}"></ContentControl>
+        <ContentControl Grid.Column="1" Name="DViewerModel" 
+                        Margin="10" Visibility="{Binding ViewerVisibility}"></ContentControl>
+        <ContentControl Grid.Column="2" Name="MPlayerModel"
+                        Margin="10" Visibility="{Binding PlayerVisibility}"></ContentControl>
+        <Grid.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Дерево каталогов" cal:Message.Attach="ExpMinimize"></MenuItem>
+                <MenuItem Header="Просмотр каталога" cal:Message.Attach="ViewerMinimize"></MenuItem>
+                <MenuItem Header="Медиа плеер" cal:Message.Attach="PlayerMinimize"></MenuItem>
+            </ContextMenu>
+        </Grid.ContextMenu>
     </Grid>
 </Window>

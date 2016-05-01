@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DigitalMediaLibrary.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d" >
     <UserControl.Resources>
 
         <Style TargetType="ListBoxItem">
@@ -54,16 +53,16 @@
             </Label>
 
             <DataTemplate.Triggers>
-                <DataTrigger Binding="{Binding Path=ExpType}" Value="0">
+                <DataTrigger Binding="{Binding Path=ExpType}" Value="img">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/png.png"></Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=ExpType}" Value="1">
+                <DataTrigger Binding="{Binding Path=ExpType}" Value="video">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/movies.png"></Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=ExpType}" Value="2">
+                <DataTrigger Binding="{Binding Path=ExpType}" Value="audio">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/audio.png"></Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=ExpType}" Value="3">
+                <DataTrigger Binding="{Binding Path=ExpType}" Value="somefile">
                     <Setter Property="Image.Source" TargetName="img" Value="/Imgs/file.png"></Setter>
                 </DataTrigger>
             </DataTemplate.Triggers>
@@ -71,17 +70,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
 
         <ListBox Name="CurrentItems"  
                  ItemTemplate="{StaticResource DirViewTemplate}" BorderThickness="0" 
-                 HorizontalContentAlignment="Left" VerticalContentAlignment="Top" 
-                 Grid.Column="0" Grid.Row="0" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding Path=SelecItem}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -89,6 +80,5 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
-        <TextBlock Name="TT" Height="100" VerticalAlignment="Bottom"></TextBlock>
     </Grid>
 </UserControl>

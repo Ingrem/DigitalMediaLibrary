@@ -43,8 +43,7 @@ namespace DigitalMediaLibrary.ViewModels
             {
                 return enumerable.First();
             }
-
-            throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
+            return new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
         }
     }
 }

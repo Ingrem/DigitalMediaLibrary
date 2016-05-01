@@ -5,7 +5,7 @@ using DigitalMediaLibrary.explorer;
 namespace DigitalMediaLibrary.ViewModels
 {
     [Export(typeof (DirExplorerViewModel))]
-    public class DirExplorerViewModel
+    public class DirExplorerViewModel 
     {
         [ImportingConstructor]
         public DirExplorerViewModel(IEventAggregator events)
@@ -14,10 +14,11 @@ namespace DigitalMediaLibrary.ViewModels
         }
 
         private static IEventAggregator _events;
+        public static readonly HeaderToImageConverter Instance = new HeaderToImageConverter();
 
         public static void ChangeDirEvent(string selectedImagePath)
         {
-            _events.PublishOnUIThread(new DirInfo { Path = selectedImagePath });
+            _events.PublishOnUIThread(new FileInform { Path = selectedImagePath });
         }
     }
 }

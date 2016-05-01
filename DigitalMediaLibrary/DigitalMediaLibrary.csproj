@@ -76,7 +76,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="explorer\DirInfo.cs" />
+    <Compile Include="explorer\FileInform.cs" />
     <Compile Include="explorer\HeaderToImageConverter.cs" />
     <Compile Include="ViewModels\DirExplorerViewModel.cs" />
     <Compile Include="ViewModels\DirViewerViewModel.cs" />
@@ -161,6 +161,9 @@
     <Resource Include="Imgs\audio.png" />
     <Resource Include="Imgs\movies.png" />
     <Resource Include="Imgs\png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Doc\tmp.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

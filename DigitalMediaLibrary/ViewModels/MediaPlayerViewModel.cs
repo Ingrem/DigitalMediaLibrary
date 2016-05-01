@@ -8,7 +8,7 @@ using Caliburn.Micro;
 namespace DigitalMediaLibrary.ViewModels
 {
     [Export(typeof(MediaPlayerViewModel))]
-    public class MediaPlayerViewModel : IHandle<string>
+    public class MediaPlayerViewModel : PropertyChangedBase, IHandle<string[]>
     {
         [ImportingConstructor]
         public MediaPlayerViewModel(IEventAggregator events)
@@ -25,6 +25,7 @@ namespace DigitalMediaLibrary.ViewModels
         }
 
         private Uri _currentMediaUri;
+        private string _currentMediaType;
         public List<MediaElement> Media { get; set; }
         private Uri CurrentMediaUri
         {
@@ -37,12 +38,41 @@ namespace DigitalMediaLibrary.ViewModels
             
         }
 
+        private Visibility _allPlayerVisibility = Visibility.Collapsed;
+        private Visibility _buttonsVisibility = Visibility.Collapsed;
+
+        public Visibility AllPlayerVisibility
+        {
+            get { return _allPlayerVisibility; }
+            set
+            {
+                _allPlayerVisibility = value;
+                NotifyOfPropertyChange(() => AllPlayerVisibility);
+            }
+        }
+
+        public Visibility ButtonsVisibility
+        {
+            get { return _buttonsVisibility; }
+            set
+            {
+                _buttonsVisibility = value;
+                NotifyOfPropertyChange(() => ButtonsVisibility);
+            }
+        }
+
+        #region Buttons: Start, Stop, Pause
+
         public void Start()
         {
             if (Media[0] != null)
             {
                 Media[0].Play();
-                Media[0].Visibility = Visibility.Visible;
+                AllPlayerVisibility = Visibility.Visible;
+                if (_currentMediaType == "video" || _currentMediaType == "audio")
+                    ButtonsVisibility = Visibility.Visible;
+                else
+                    ButtonsVisibility = Visibility.Collapsed;
             }
         }
 
@@ -51,7 +81,7 @@ namespace DigitalMediaLibrary.ViewModels
             if (Media[0] != null)
             {
                 Media[0].Stop();
-                Media[0].Visibility = Visibility.Hidden;
+                AllPlayerVisibility = Visibility.Collapsed;
             }
         }
 
@@ -60,9 +90,12 @@ namespace DigitalMediaLibrary.ViewModels
             Media[0]?.Pause();
         }
 
-        public void Handle(string message)
+        #endregion
+
+        public void Handle(string[] message)
         {
-            CurrentMediaUri = new Uri(message);
+            CurrentMediaUri = new Uri(message[0]);
+            _currentMediaType = message[1];
             Start();
         }
     }

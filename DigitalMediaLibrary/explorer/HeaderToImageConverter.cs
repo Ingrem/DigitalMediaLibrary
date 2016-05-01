@@ -8,8 +8,6 @@ namespace DigitalMediaLibrary.explorer
     [ValueConversion(typeof(string), typeof(bool))]
     public class HeaderToImageConverter : IValueConverter
     {
-        public static readonly HeaderToImageConverter Instance = new HeaderToImageConverter();
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (((string) value).Contains(@"\"))

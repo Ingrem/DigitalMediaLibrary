@@ -1,12 +1,9 @@
 ﻿<UserControl x:Class="DigitalMediaLibrary.Views.DirExplorerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:y="clr-namespace:DigitalMediaLibrary.explorer" 
+             xmlns:y="clr-namespace:DigitalMediaLibrary.ViewModels" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:viewModels="clr-namespace:DigitalMediaLibrary.ViewModels"
-             xmlns:cal="http://www.caliburnproject.org"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -32,7 +29,7 @@
                                        Mode=FindAncestor, 
                                        AncestorType={x:Type TreeViewItem}}, 
                                        Path=Header, 
-                                       Converter={x:Static y:HeaderToImageConverter.Instance}}"       
+                                       Converter={x:Static y:DirExplorerViewModel.Instance}}"       
                                        />
                                                 <TextBlock Text="{Binding}" Margin="5,0" />
                                             </StackPanel>
