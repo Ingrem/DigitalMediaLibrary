@@ -1,11 +1,14 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Windows;
 using Caliburn.Micro;
+using DigitalMediaLibrary.Models;
+using System.Collections.Generic;
 
 namespace DigitalMediaLibrary.ViewModels
 {
     [Export(typeof(MainViewModel))]
-    public class MainViewModel : PropertyChangedBase , IHandle<object>
+    public class MainViewModel : PropertyChangedBase
     {
         [ImportingConstructor]
         public MainViewModel(MediaPlayerViewModel mPlayerModel, DirViewerViewModel dViewerModel, DirExplorerViewModel dExpModel,
@@ -15,6 +18,7 @@ namespace DigitalMediaLibrary.ViewModels
             DViewerModel = dViewerModel;
             MPlayerModel = mPlayerModel;
             events.Subscribe(this);
+        //    CreateNewDB();
         }
         public DirExplorerViewModel DExpModel { get; private set; }
         public DirViewerViewModel DViewerModel { get; private set; }
@@ -109,8 +113,16 @@ namespace DigitalMediaLibrary.ViewModels
 
         #endregion
 
-        public void Handle(object message)
+        private void CreateNewDB()
         {
+            using (LibraryContext db = new LibraryContext())
+            {
+                 var mediaTypes = db.MediaTypes;
+                foreach (MediaType u in mediaTypes)
+                {
+                    Console.WriteLine(u.MediaTypeId.ToString(), u.Name);
+                } 
+            }
         }
     }
 }

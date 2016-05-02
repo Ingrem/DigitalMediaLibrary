@@ -30,6 +30,6 @@ namespace DigitalMediaLibrary.explorer
         readonly List<string> _videoExt = new List<string>() { ".avi", ".divx", ".flv", ".h264",
             ".mkv", ".mov", ".mp4", ".mpeg", ".mts", ".mlmp", ".wmv", ".m2t", ".MP4"};
         readonly List<string> _imgExt = new List<string>() { ".crw", ".djvu", ".ico", ".gif",
-            ".jp2", ".jpeg", ".jpg", ".png", ".sfw", ".tiff", ".tif"};
+            ".jp2", ".jpeg", ".jpg", ".png", ".sfw", ".tiff", ".tif", ".pdf"};
     }
 }
