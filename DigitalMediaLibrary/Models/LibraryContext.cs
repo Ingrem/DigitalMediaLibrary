@@ -16,5 +16,7 @@ namespace DigitalMediaLibrary.Models
         }
 
         public DbSet<MediaType> MediaTypes { get; set; }
+        public DbSet<Category> Categorys { get; set; }
+        public DbSet<File> Files { get; set; }
     }
 }

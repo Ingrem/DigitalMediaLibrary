@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Caliburn.Micro;
 using DigitalMediaLibrary.explorer;
+using DigitalMediaLibrary.Models;
 
 namespace DigitalMediaLibrary.ViewModels
   {
@@ -22,6 +23,7 @@ namespace DigitalMediaLibrary.ViewModels
         private static IEventAggregator _events;
         private IList<FileInform> _currentItems;
         private FileInform _currentDirectory;
+        private FileInform _currentCategoryFromDb;
         private FileInform _selecItem;
 
         public FileInform SelecItem
@@ -32,7 +34,8 @@ namespace DigitalMediaLibrary.ViewModels
                 if (value != null)
                 {
                     _selecItem = value;
-                    _events.PublishOnUIThread(new[] { _selecItem.Path, _selecItem.ExpType});
+                    if (_selecItem.Path !="")
+                        _events.PublishOnUIThread(new[] { _selecItem.Path, _selecItem.ExpType});
                 }
             }
         }
@@ -65,9 +68,37 @@ namespace DigitalMediaLibrary.ViewModels
             }
         }
 
+        private FileInform CurrentCategoryFromDb
+        {
+            get { return _currentCategoryFromDb; }
+            set
+            {
+                _currentCategoryFromDb = value;
+
+                var tmpCurrentItems = new List<FileInform>();
+                using (LibraryContext db = new LibraryContext())
+                {
+                    var categorys = db.Categorys.ToList();
+                    var files = db.Files.ToList();
+                    tmpCurrentItems.AddRange(
+                        from u in categorys
+                        where u.Name == _currentCategoryFromDb.Name
+                        where u.Files != null
+                        from w in u.Files
+                        select new FileInform(w));
+                }
+                CurrentItems = tmpCurrentItems;
+            }
+        }
+
         public void Handle(FileInform message)
         {
-            CurrentDirectory = message;
+            if (message.Path!="DB")
+                CurrentDirectory = message;
+            else
+            {
+                CurrentCategoryFromDb = message;
+            }
         }
     }
 }

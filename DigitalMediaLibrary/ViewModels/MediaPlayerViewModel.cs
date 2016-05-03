@@ -38,6 +38,8 @@ namespace DigitalMediaLibrary.ViewModels
             
         }
 
+        #region Visibility
+
         private Visibility _allPlayerVisibility = Visibility.Collapsed;
         private Visibility _buttonsVisibility = Visibility.Collapsed;
 
@@ -60,6 +62,8 @@ namespace DigitalMediaLibrary.ViewModels
                 NotifyOfPropertyChange(() => ButtonsVisibility);
             }
         }
+
+        #endregion
 
         #region Buttons: Start, Stop, Pause
 

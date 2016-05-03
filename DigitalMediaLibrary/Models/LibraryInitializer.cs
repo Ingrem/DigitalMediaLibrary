@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DigitalMediaLibrary.Models
 {
@@ -14,18 +10,18 @@ namespace DigitalMediaLibrary.Models
             {
                 Name = "Audio",
                 Categorys = new List<Category>
-                    {
-                        new Category { Name = "Вокальная музыка" },
-                        new Category { Name = "Детская музыка" },
-                        new Category { Name = "Тёрнтейблизм" },
-                        new Category { Name = "J-pop" },
-                        new Category { Name = "Рагга" },
-                        new Category { Name = "Мэдчестер" },
-                        new Category { Name = "Дрилл-н-бэйс" },
-                        new Category { Name = "Техана" },
-                        new Category { Name = "Джаз-фьюжн" },
-                        new Category { Name = "Грайм" }
-                    }
+                {
+                    new Category {Name = "Вокальная музыка"},
+                    new Category {Name = "Детская музыка"},
+                    new Category {Name = "Тёрнтейблизм"},
+                    new Category {Name = "J-pop"},
+                    new Category {Name = "Рагга"},
+                    new Category {Name = "Мэдчестер"},
+                    new Category {Name = "Дрилл-н-бэйс"},
+                    new Category {Name = "Техана"},
+                    new Category {Name = "Джаз-фьюжн"},
+                    new Category {Name = "Грайм"}
+                }
             };
             MediaType video = new MediaType
             {

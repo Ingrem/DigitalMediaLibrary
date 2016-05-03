@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Xml;
+using DigitalMediaLibrary.Models;
 using DigitalMediaLibrary.ViewModels;
 
 namespace DigitalMediaLibrary.Views
@@ -86,6 +87,20 @@ namespace DigitalMediaLibrary.Views
                 temp2 = @"\";
             }
             DirExplorerViewModel.ChangeDirEvent(SelectedImagePath);
+        }
+
+        private void SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var tree = (TreeView)sender;
+            try
+            {
+                var temp = ((Category)tree.SelectedItem);
+                DirExplorerViewModel.SelectedinDbChanged(temp.Name);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
 
         private void Window_Closing(object sender, EventArgs e)

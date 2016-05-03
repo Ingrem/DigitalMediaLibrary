@@ -1,4 +1,6 @@
-﻿namespace DigitalMediaLibrary.Models
+﻿
+
+namespace DigitalMediaLibrary.Models
 {
     public class File
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Windows;
+using File = DigitalMediaLibrary.Models.File;
 
 namespace DigitalMediaLibrary.explorer
 {
@@ -9,6 +10,8 @@ namespace DigitalMediaLibrary.explorer
         public string Name { get; set; }
         public string Path { get; set; }
         public string ExpType { get; set; }
+
+        public object Content { get; set; }
 
         public FileInform() { }
 
@@ -22,6 +25,19 @@ namespace DigitalMediaLibrary.explorer
             if (_videoExt.Contains(fileobj.Extension))
                 ExpType = "video";
             if (_imgExt.Contains(fileobj.Extension))
+                ExpType = "img";
+        }
+
+        public FileInform(File fileobj)
+        {
+            Name = fileobj.Name;
+            Content = fileobj.Content;
+            ExpType = "somefile";
+            if (_audioExt.Contains(fileobj.Expansion))
+                ExpType = "audio";
+            if (_videoExt.Contains(fileobj.Expansion))
+                ExpType = "video";
+            if (_imgExt.Contains(fileobj.Expansion))
                 ExpType = "img";
         }
 
