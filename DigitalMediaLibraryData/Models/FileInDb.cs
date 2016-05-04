@@ -1,10 +1,8 @@
-﻿
-
-namespace DigitalMediaLibrary.Models
+﻿namespace DigitalMediaLibraryData.Models
 {
-    public class File
+    public class FileInDb
     {
-        public int FileId { get; set; }
+        public int FileInDbId { get; set; }
         public string Name { get; set; }
         public string Expansion { get; set; }
         public string DateOfCreation { get; set; }

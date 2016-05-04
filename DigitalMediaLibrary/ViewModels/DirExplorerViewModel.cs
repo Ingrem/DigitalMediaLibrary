@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
@@ -17,10 +16,9 @@ namespace DigitalMediaLibrary.ViewModels
             _events = events;
         }
 
-        private static IEventAggregator _events;
         public static readonly HeaderToImageConverter Instance = new HeaderToImageConverter();
-
         private List<MediaType> _treeViewSource = new List<MediaType>();
+        private static IEventAggregator _events;
 
         public List<MediaType> TreeViewSource
         {

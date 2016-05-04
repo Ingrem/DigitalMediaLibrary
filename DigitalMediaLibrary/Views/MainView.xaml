@@ -18,9 +18,11 @@
                         Margin="10" Visibility="{Binding PlayerVisibility}"></ContentControl>
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Дерево каталогов" cal:Message.Attach="ExpMinimize"></MenuItem>
-                <MenuItem Header="Просмотр каталога" cal:Message.Attach="ViewerMinimize"></MenuItem>
-                <MenuItem Header="Медиа плеер" cal:Message.Attach="PlayerMinimize"></MenuItem>
+                <MenuItem Header="Свернуть/Развернуть">
+                    <MenuItem Header="Дерево каталогов" cal:Message.Attach="ExpMinimize" IsCheckable="True"></MenuItem>
+                    <MenuItem Header="Просмотр каталога" cal:Message.Attach="ViewerMinimize" IsCheckable="True"></MenuItem>
+                    <MenuItem Header="Медиа плеер" cal:Message.Attach="PlayerMinimize" IsCheckable="True"></MenuItem>
+                </MenuItem>
             </ContextMenu>
         </Grid.ContextMenu>
     </Grid>

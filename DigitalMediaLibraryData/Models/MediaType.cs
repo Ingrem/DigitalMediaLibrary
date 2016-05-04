@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DigitalMediaLibrary.Models
+namespace DigitalMediaLibraryData.Models
 {
     public class MediaType
     {

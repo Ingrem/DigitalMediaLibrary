@@ -87,11 +87,6 @@
     </Compile>
     <Compile Include="explorer\FileInform.cs" />
     <Compile Include="explorer\HeaderToImageConverter.cs" />
-    <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\File.cs" />
-    <Compile Include="Models\LibraryContext.cs" />
-    <Compile Include="Models\LibraryInitializer.cs" />
-    <Compile Include="Models\MediaType.cs" />
     <Compile Include="ViewModels\DirExplorerViewModel.cs" />
     <Compile Include="ViewModels\DirViewerViewModel.cs" />
     <Compile Include="ViewModels\MediaPlayerViewModel.cs" />

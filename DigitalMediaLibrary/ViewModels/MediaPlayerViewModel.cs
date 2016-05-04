@@ -24,19 +24,8 @@ namespace DigitalMediaLibrary.ViewModels
             };
         }
 
-        private Uri _currentMediaUri;
         private string _currentMediaType;
         public List<MediaElement> Media { get; set; }
-        private Uri CurrentMediaUri
-        {
-            get { return _currentMediaUri; }
-            set
-            {
-                _currentMediaUri = value;
-                Media[0].Source = _currentMediaUri;
-            }
-            
-        }
 
         #region Visibility
 
@@ -98,7 +87,7 @@ namespace DigitalMediaLibrary.ViewModels
 
         public void Handle(string[] message)
         {
-            CurrentMediaUri = new Uri(message[0]);
+            Media[0].Source = new Uri(message[0]);
             _currentMediaType = message[1];
             Start();
         }

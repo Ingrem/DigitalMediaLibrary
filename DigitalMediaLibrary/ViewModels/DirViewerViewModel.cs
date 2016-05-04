@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Windows;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
@@ -24,8 +26,9 @@ namespace DigitalMediaLibrary.ViewModels
         private IList<FileInform> _currentItems;
         private FileInform _currentDirectory;
         private FileInform _currentCategoryFromDb;
-        private FileInform _selecItem;
+        private static FileInform _selecItem;
 
+        // Select item and play it
         public FileInform SelecItem
         {
             get { return _selecItem; }
@@ -34,12 +37,12 @@ namespace DigitalMediaLibrary.ViewModels
                 if (value != null)
                 {
                     _selecItem = value;
-                    if (_selecItem.Path !="")
+                    if (_selecItem.Path !="DB")
                         _events.PublishOnUIThread(new[] { _selecItem.Path, _selecItem.ExpType});
                 }
             }
         }
-
+        //List for GUI
         public IList<FileInform> CurrentItems
         {
             get { return _currentItems ?? (_currentItems = new List<FileInform>()); }
@@ -49,7 +52,7 @@ namespace DigitalMediaLibrary.ViewModels
                 NotifyOfPropertyChange(() => CurrentItems);
             }
         }
-
+        //Take files from dir in dirTreeview and add it to CurrentItems list
         private FileInform CurrentDirectory
         {
             get { return _currentDirectory; }
@@ -57,17 +60,24 @@ namespace DigitalMediaLibrary.ViewModels
             {
                 _currentDirectory = value;
 
-                if (CurrentDirectory.Path != "")
+                try
                 {
-                    IList<FileInfo> childFiles = (from x in Directory.GetFiles(CurrentDirectory.Path)
-                        select new FileInfo(x)).ToList();
+                    if (CurrentDirectory.Path != "DB" & CurrentDirectory.Path != "")
+                    {
+                        IList<FileInfo> childFiles = (from x in Directory.GetFiles(CurrentDirectory.Path)
+                                                      select new FileInfo(x)).ToList();
 
-                    CurrentItems = (from fobj in childFiles
-                        select new FileInform(fobj)).ToList();
+                        CurrentItems = (from fobj in childFiles
+                                        select new FileInform(fobj)).ToList();
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Доступ запрещён");
                 }
             }
         }
-
+        //Take files from db in selected category and add it to CurrentItems list
         private FileInform CurrentCategoryFromDb
         {
             get { return _currentCategoryFromDb; }
@@ -90,7 +100,30 @@ namespace DigitalMediaLibrary.ViewModels
                 CurrentItems = tmpCurrentItems;
             }
         }
-
+        // Save in db
+        public static void SaveInDb()
+        {
+            if (_selecItem.Path != "DB")
+                using (LibraryContext db = new LibraryContext())
+                {
+                    var category = db.Categorys.FirstOrDefault(s => s.Name == "Ню");
+                    if (category != null)
+                    {
+                        category.Files = new List<FileInDb>
+                        {
+                            new FileInDb
+                            {
+                                Name = _selecItem.Name,
+                                CategoryId = category.CategoryId,
+                                DateOfCreation = _selecItem.DateOfCreation,
+                                Expansion = _selecItem.Expansion,
+                                Size = _selecItem.Size
+                            }
+                        };
+                    }
+                    db.SaveChanges();
+                }
+        }
         public void Handle(FileInform message)
         {
             if (message.Path!="DB")

@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Entity;
 
-namespace DigitalMediaLibrary.Models
+namespace DigitalMediaLibraryData.Models
 {
     public class LibraryContext : DbContext
     {
@@ -17,6 +13,6 @@ namespace DigitalMediaLibrary.Models
 
         public DbSet<MediaType> MediaTypes { get; set; }
         public DbSet<Category> Categorys { get; set; }
-        public DbSet<File> Files { get; set; }
+        public DbSet<FileInDb> Files { get; set; }
     }
 }

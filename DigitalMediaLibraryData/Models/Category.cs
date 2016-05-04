@@ -1,8 +1,6 @@
-﻿
+﻿using System.Collections.Generic;
 
-using System.Collections.Generic;
-
-namespace DigitalMediaLibrary.Models
+namespace DigitalMediaLibraryData.Models
 {
     public class Category
     {
@@ -13,6 +11,6 @@ namespace DigitalMediaLibrary.Models
 
         public MediaType MediaType { get; set; }
 
-        public List<File> Files { get; set; }
+        public List<FileInDb> Files { get; set; }
     }
 }

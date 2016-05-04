@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 using System.Xml;
 using DigitalMediaLibrary.Models;
 using DigitalMediaLibrary.ViewModels;
@@ -33,7 +31,7 @@ namespace DigitalMediaLibrary.Views
 
         private readonly object _dummyNode = null;
         private string SelectedImagePath { get; set; }
-
+        //Create tree nodes from dir treeview
         private void folder_Expanded(object sender, RoutedEventArgs e)
         {
             var item = (TreeViewItem) sender;
@@ -61,7 +59,7 @@ namespace DigitalMediaLibrary.Views
                 }
             }
         }
-
+        // Select from dir TreeView
         private void foldersItem_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var tree = (TreeView) sender;
@@ -88,7 +86,7 @@ namespace DigitalMediaLibrary.Views
             }
             DirExplorerViewModel.ChangeDirEvent(SelectedImagePath);
         }
-
+        // Select from DB
         private void SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             var tree = (TreeView)sender;
@@ -102,7 +100,7 @@ namespace DigitalMediaLibrary.Views
                 // ignored
             }
         }
-
+        #region Save Dir Treeview
         private void Window_Closing(object sender, EventArgs e)
         {
             using (new MemoryStream())
@@ -181,5 +179,6 @@ namespace DigitalMediaLibrary.Views
                 reader?.Close();
             }
         }
+        #endregion
     }
 }

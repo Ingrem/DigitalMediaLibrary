@@ -24,5 +24,9 @@ namespace DigitalMediaLibrary.Views
         {
             InitializeComponent();
         }
+        private void SaveInDb_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModels.DirViewerViewModel.SaveInDb();
+        }
     }
 }

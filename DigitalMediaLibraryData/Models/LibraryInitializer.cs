@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DigitalMediaLibrary.Models
+namespace DigitalMediaLibraryData.Models
 {
     public class LibraryInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<LibraryContext>
     {
@@ -54,7 +54,7 @@ namespace DigitalMediaLibrary.Models
                         new Category { Name = "Низкий ключ" },
                         new Category { Name = "Высокий ключ" },
                         new Category { Name = "Сюрреализм" },
-                        new Category { Name = "Ню" }
+                        new Category { Name = "Ню"}
                     }
             };
 

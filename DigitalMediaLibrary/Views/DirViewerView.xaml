@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DigitalMediaLibrary.Views"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" >
     <UserControl.Resources>
 
@@ -50,6 +51,11 @@
                         <TextBlock Text="{Binding Name}"/>
                     </ToolTip>
                 </Label.ToolTip>
+                <Label.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Сохранить в базу" Click="SaveInDb_Click"></MenuItem>
+                    </ContextMenu>
+                </Label.ContextMenu>
             </Label>
 
             <DataTemplate.Triggers>
@@ -70,8 +76,7 @@
     </UserControl.Resources>
 
     <Grid>
-
-        <ListBox Name="CurrentItems"  
+        <ListBox x:Name="CurrentItems"  
                  ItemTemplate="{StaticResource DirViewTemplate}" BorderThickness="0" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding Path=SelecItem}">
             <ListBox.ItemsPanel>
