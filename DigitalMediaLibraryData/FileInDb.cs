@@ -20,6 +20,7 @@ namespace DigitalMediaLibraryData
         public string DateOfCreation { get; set; }
         public string Size { get; set; }
         public int CategoryId { get; set; }
+        public string FileSourse { get; set; }
     
         public virtual Category Category { get; set; }
     }

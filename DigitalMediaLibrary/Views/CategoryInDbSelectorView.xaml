@@ -1,0 +1,33 @@
+﻿<Window x:Class="DigitalMediaLibrary.Views.CategoryInDbSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:DigitalMediaLibrary.ViewModels"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:cal="http://www.caliburnproject.org"
+        mc:Ignorable="d"
+        Title="CategoryInDbSelectorView" Height="300" Width="300">
+    <Window.Resources>
+        <viewModels:CategoryInDbSelectorViewModel x:Key="viewmodel"></viewModels:CategoryInDbSelectorViewModel>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource viewmodel}">
+        <StackPanel>
+            <ItemsControl ItemsSource="{Binding States}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <RadioButton GroupName="Same" IsChecked="{Binding IsSelected}" Content="{Binding StateName}"></RadioButton>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button DataContext="{StaticResource viewmodel}" Height="25" Width="50" HorizontalAlignment="Left">
+                <TextBlock FontSize="10" FontWeight="ExtraLight">Сохранить</TextBlock>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <cal:ActionMessage MethodName="Save" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

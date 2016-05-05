@@ -87,9 +87,14 @@
     </Compile>
     <Compile Include="explorer\FileInform.cs" />
     <Compile Include="explorer\HeaderToImageConverter.cs" />
+    <Compile Include="ViewModels\CategoryInDbSelectorModel.cs" />
+    <Compile Include="ViewModels\CategoryInDbSelectorViewModel.cs" />
     <Compile Include="ViewModels\DirExplorerViewModel.cs" />
     <Compile Include="ViewModels\DirViewerViewModel.cs" />
     <Compile Include="ViewModels\MediaPlayerViewModel.cs" />
+    <Compile Include="Views\CategoryInDbSelectorView.xaml.cs">
+      <DependentUpon>CategoryInDbSelectorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DirExplorerView.xaml.cs">
       <DependentUpon>DirExplorerView.xaml</DependentUpon>
     </Compile>
@@ -147,6 +152,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\CategoryInDbSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DirExplorerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

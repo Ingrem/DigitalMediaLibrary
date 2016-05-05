@@ -15,7 +15,7 @@ namespace DigitalMediaLibrary.explorer
         public string Expansion { get; set; }
         public string Size { get; set; }
         public int CategoryId { get; set; }
-        
+        public byte[] FileSourse { get; set; }
 
         public FileInform() { }
 
@@ -34,6 +34,7 @@ namespace DigitalMediaLibrary.explorer
                 ExpType = "video";
             if (_imgExt.Contains(fileobj.Extension))
                 ExpType = "img";
+            FileSourse = File.ReadAllBytes(fileobj.FullName);
         }
         //for DB Explorer
         public FileInform(FileInDb fileobj)
@@ -52,6 +53,7 @@ namespace DigitalMediaLibrary.explorer
                 ExpType = "video";
             if (_imgExt.Contains(fileobj.Expansion))
                 ExpType = "img";
+            FileSourse = fileobj.FileSourse;
         }
 
         readonly List<string> _audioExt = new List<string> { ".PCM", ".FLAC", ".WMA-Lossless", ".MP3",

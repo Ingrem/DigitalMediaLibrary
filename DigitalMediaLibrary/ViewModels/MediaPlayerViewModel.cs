@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Caliburn.Micro;
@@ -8,7 +9,7 @@ using Caliburn.Micro;
 namespace DigitalMediaLibrary.ViewModels
 {
     [Export(typeof(MediaPlayerViewModel))]
-    public class MediaPlayerViewModel : PropertyChangedBase, IHandle<string[]>
+    public class MediaPlayerViewModel : PropertyChangedBase, IHandle<string[]>, IHandle<byte[]>
     {
         [ImportingConstructor]
         public MediaPlayerViewModel(IEventAggregator events)
@@ -89,6 +90,18 @@ namespace DigitalMediaLibrary.ViewModels
         {
             Media[0].Source = new Uri(message[0]);
             _currentMediaType = message[1];
+            Start();
+        }
+
+        public void Handle(byte[] message)
+        {
+           // Stream stream = new MemoryStream(message);
+            using (Stream file = File.OpenWrite("./here"))
+            {
+                file.Write(message, 0, message.Length);
+            }
+            Media[0].Source = new Uri("./here");
+            _currentMediaType = "audio";
             Start();
         }
     }

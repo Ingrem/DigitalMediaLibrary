@@ -7,6 +7,7 @@ using System.Linq;
 using Caliburn.Micro;
 using DigitalMediaLibrary.explorer;
 using DigitalMediaLibraryData.Models;
+using DigitalMediaLibrary.Views;
 
 namespace DigitalMediaLibrary.ViewModels
   {
@@ -27,6 +28,8 @@ namespace DigitalMediaLibrary.ViewModels
         private FileInform _currentDirectory;
         private FileInform _currentCategoryFromDb;
         private static FileInform _selecItem;
+        public static List<string> CategoriesInDb;
+        private static CategoryInDbSelector _choiseCategory;
 
         // Select item and play it
         public FileInform SelecItem
@@ -39,6 +42,10 @@ namespace DigitalMediaLibrary.ViewModels
                     _selecItem = value;
                     if (_selecItem.Path !="DB")
                         _events.PublishOnUIThread(new[] { _selecItem.Path, _selecItem.ExpType});
+                    else
+                    {
+                        _events.PublishOnUIThread(_selecItem.FileSourse);
+                    }
                 }
             }
         }
@@ -99,30 +106,67 @@ namespace DigitalMediaLibrary.ViewModels
                 CurrentItems = tmpCurrentItems;
             }
         }
-        // Save in db
-        public static void SaveInDb()
+        // Save in db show window
+        public static void FormingCategoryChoiser()
         {
             if (_selecItem.Path != "DB")
                 using (LibraryContext db = new LibraryContext())
                 {
-                    var category = db.Categorys.FirstOrDefault(s => s.Name == "Ню");
-                    if (category != null)
+                    int mediaType;
+                    switch (_selecItem.ExpType)
                     {
-                        category.Files = new List<FileInDb>
-                        {
-                            new FileInDb
-                            {
-                                Name = _selecItem.Name,
-                                CategoryId = category.CategoryId,
-                                DateOfCreation = _selecItem.DateOfCreation,
-                                Expansion = _selecItem.Expansion,
-                                Size = _selecItem.Size
-                            }
-                        };
+                        case "audio":
+                            mediaType = 1;
+                            break;
+                        case "video":
+                            mediaType = 2;
+                            break;
+                        case "img":
+                            mediaType = 3;
+                            break;
+                        default:
+                            mediaType = 4;
+                            break;
                     }
-                    db.SaveChanges();
+                    if (mediaType != 4)
+                    {
+                        CategoriesInDb = new List<string>();
+                        var categorys = db.Categorys.ToList();
+                        foreach (var u in categorys.Where(u => u.MediaTypeId == mediaType))
+                        {
+                            CategoriesInDb.Add(u.Name);
+                        }
+                        _choiseCategory = new CategoryInDbSelector();
+                        _choiseCategory.ShowDialog();
+                    }
                 }
         }
+        // Save in db
+        public static void JustSaveInDb(string categoryName)
+        {
+            using (LibraryContext db = new LibraryContext())
+            {
+                var category = db.Categorys.FirstOrDefault(s => s.Name == categoryName);
+                if (category != null)
+                {
+                    category.Files = new List<FileInDb>
+                    {
+                        new FileInDb
+                        {
+                            Name = _selecItem.Name,
+                            CategoryId = category.CategoryId,
+                            DateOfCreation = _selecItem.DateOfCreation,
+                            Expansion = _selecItem.Expansion,
+                            Size = _selecItem.Size,
+                            FileSourse = _selecItem.FileSourse
+                        }
+                    };
+                }
+                db.SaveChanges();
+            }
+            _choiseCategory.Close();
+        }
+
         public void Handle(FileInform message)
         {
             if (message.Path!="DB")
