@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using Caliburn.Micro;
 using DigitalMediaLibrary.explorer;
-using DigitalMediaLibrary.Models;
+using DigitalMediaLibraryData.Models;
 
 namespace DigitalMediaLibrary.ViewModels
   {
@@ -80,7 +80,6 @@ namespace DigitalMediaLibrary.ViewModels
         //Take files from db in selected category and add it to CurrentItems list
         private FileInform CurrentCategoryFromDb
         {
-            get { return _currentCategoryFromDb; }
             set
             {
                 _currentCategoryFromDb = value;

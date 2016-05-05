@@ -4,7 +4,7 @@
              xmlns:y="clr-namespace:DigitalMediaLibrary.ViewModels" 
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:models="clr-namespace:DigitalMediaLibrary.Models"
+             xmlns:models1="clr-namespace:DigitalMediaLibraryData.Models;assembly=DigitalMediaLibraryData"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -58,7 +58,7 @@
                             </Style>
                         </TreeView.ItemContainerStyle>
                         <TreeView.ItemTemplate>
-                            <HierarchicalDataTemplate DataType="{x:Type models:MediaType}" ItemsSource="{Binding Categorys}">
+                            <HierarchicalDataTemplate DataType="{x:Type models1:MediaType}" ItemsSource="{Binding Categorys}">
                                 <TextBlock Text="{Binding Name}"/>
                             </HierarchicalDataTemplate>
                         </TreeView.ItemTemplate>

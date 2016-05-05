@@ -4,7 +4,7 @@
              xmlns:cal="http://www.caliburnproject.org"
              Title="Digital Media Library" Height="500" Width="1300">
 
-    <Grid>
+    <Grid Background="Transparent">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="{Binding ViewerWidth}"/>

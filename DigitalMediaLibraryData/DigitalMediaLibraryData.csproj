@@ -11,6 +11,7 @@
     <AssemblyName>DigitalMediaLibraryData</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,7 +24,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -66,32 +66,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Categories.cs">
-      <DependentUpon>DigitalMediaLibraryDB.tt</DependentUpon>
+    <Compile Include="Category.cs">
+      <DependentUpon>DigitalMediaLibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="C__MigrationHistory.cs">
-      <DependentUpon>DigitalMediaLibraryDB.tt</DependentUpon>
+      <DependentUpon>DigitalMediaLibraryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DigitalMediaLibraryDB.Context.cs">
+    <Compile Include="DigitalMediaLibraryModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DigitalMediaLibraryDB.Context.tt</DependentUpon>
+      <DependentUpon>DigitalMediaLibraryModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DigitalMediaLibraryDB.cs">
+    <Compile Include="DigitalMediaLibraryModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DigitalMediaLibraryDB.tt</DependentUpon>
+      <DependentUpon>DigitalMediaLibraryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DigitalMediaLibraryDB.Designer.cs">
+    <Compile Include="DigitalMediaLibraryModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DigitalMediaLibraryDB.edmx</DependentUpon>
+      <DependentUpon>DigitalMediaLibraryModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="FileInDbs.cs">
-      <DependentUpon>DigitalMediaLibraryDB.tt</DependentUpon>
+    <Compile Include="FileInDb.cs">
+      <DependentUpon>DigitalMediaLibraryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="MediaTypes.cs">
-      <DependentUpon>DigitalMediaLibraryDB.tt</DependentUpon>
+    <Compile Include="MediaType.cs">
+      <DependentUpon>DigitalMediaLibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\FileInDb.cs" />
@@ -101,34 +101,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DigitalMediaLibrary.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DigitalMediaLibraryDB.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DigitalMediaLibraryDB.edmx</DependentUpon>
-      <LastGenOutput>DigitalMediaLibraryDB.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DigitalMediaLibraryDB.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DigitalMediaLibraryDB.edmx</DependentUpon>
-      <LastGenOutput>DigitalMediaLibraryDB.cs</LastGenOutput>
-    </Content>
-    <Content Include="DigitalMediaLibrary_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>DigitalMediaLibrary.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="DigitalMediaLibraryDB.edmx">
+    <EntityDeploy Include="DigitalMediaLibraryModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DigitalMediaLibraryDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>DigitalMediaLibraryModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
-    <None Include="DigitalMediaLibraryDB.edmx.diagram">
-      <DependentUpon>DigitalMediaLibraryDB.edmx</DependentUpon>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DigitalMediaLibraryModel.edmx.diagram">
+      <DependentUpon>DigitalMediaLibraryModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -146,6 +127,25 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DigitalMediaLibrary.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DigitalMediaLibraryModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DigitalMediaLibraryModel.edmx</DependentUpon>
+      <LastGenOutput>DigitalMediaLibraryModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DigitalMediaLibraryModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DigitalMediaLibraryModel.edmx</DependentUpon>
+      <LastGenOutput>DigitalMediaLibraryModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="DigitalMediaLibrary_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>DigitalMediaLibrary.mdf</DependentUpon>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

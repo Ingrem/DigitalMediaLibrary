@@ -26,8 +26,8 @@ namespace DigitalMediaLibraryData
         }
     
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<FileInDbs> FileInDbs { get; set; }
-        public virtual DbSet<MediaTypes> MediaTypes { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<FileInDb> FileInDbs { get; set; }
+        public virtual DbSet<MediaType> MediaTypes { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 
 namespace DigitalMediaLibraryData.Models
 {
@@ -8,7 +7,6 @@ namespace DigitalMediaLibraryData.Models
         public LibraryContext()
             : base("DbConnection")
         {
-            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Directory.GetCurrentDirectory());
         }
 
         public DbSet<MediaType> MediaTypes { get; set; }

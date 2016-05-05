@@ -12,7 +12,7 @@ namespace DigitalMediaLibraryData
     using System;
     using System.Collections.Generic;
     
-    public partial class FileInDbs
+    public partial class FileInDb
     {
         public int FileInDbId { get; set; }
         public string Name { get; set; }
@@ -21,6 +21,6 @@ namespace DigitalMediaLibraryData
         public string Size { get; set; }
         public int CategoryId { get; set; }
     
-        public virtual Categories Categories { get; set; }
+        public virtual Category Category { get; set; }
     }
 }

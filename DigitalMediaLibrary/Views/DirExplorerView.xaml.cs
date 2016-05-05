@@ -4,7 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
-using DigitalMediaLibrary.Models;
+using DigitalMediaLibraryData.Models;
 using DigitalMediaLibrary.ViewModels;
 
 namespace DigitalMediaLibrary.Views

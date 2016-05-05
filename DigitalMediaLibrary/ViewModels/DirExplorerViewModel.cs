@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Caliburn.Micro;
 using DigitalMediaLibrary.explorer;
-using DigitalMediaLibrary.Models;
+using DigitalMediaLibraryData.Models;
 
 namespace DigitalMediaLibrary.ViewModels
 {

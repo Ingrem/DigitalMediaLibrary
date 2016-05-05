@@ -98,17 +98,17 @@
           <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
           <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityType Name="Categories">
+        <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
           </Key>
           <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MediaTypeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MediaTypes" Relationship="Self.FK_dbo_Categories_dbo_MediaTypes_MediaTypeId" FromRole="Categories" ToRole="MediaTypes" />
+          <NavigationProperty Name="MediaType" Relationship="Self.FK_dbo_Categories_dbo_MediaTypes_MediaTypeId" FromRole="Categories" ToRole="MediaTypes" />
           <NavigationProperty Name="FileInDbs" Relationship="Self.FK_dbo_FileInDbs_dbo_Categories_CategoryId" FromRole="Categories" ToRole="FileInDbs" />
         </EntityType>
-        <EntityType Name="FileInDbs">
+        <EntityType Name="FileInDb">
           <Key>
             <PropertyRef Name="FileInDbId" />
           </Key>
@@ -118,9 +118,9 @@
           <Property Name="DateOfCreation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Size" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Categories" Relationship="Self.FK_dbo_FileInDbs_dbo_Categories_CategoryId" FromRole="FileInDbs" ToRole="Categories" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_dbo_FileInDbs_dbo_Categories_CategoryId" FromRole="FileInDbs" ToRole="Categories" />
         </EntityType>
-        <EntityType Name="MediaTypes">
+        <EntityType Name="MediaType">
           <Key>
             <PropertyRef Name="MediaTypeId" />
           </Key>
@@ -129,10 +129,10 @@
           <NavigationProperty Name="Categories" Relationship="Self.FK_dbo_Categories_dbo_MediaTypes_MediaTypeId" FromRole="MediaTypes" ToRole="Categories" />
         </EntityType>
         <Association Name="FK_dbo_Categories_dbo_MediaTypes_MediaTypeId">
-          <End Role="MediaTypes" Type="Self.MediaTypes" Multiplicity="1">
+          <End Role="MediaTypes" Type="Self.MediaType" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="Categories" Type="Self.Categories" Multiplicity="*" />
+          <End Role="Categories" Type="Self.Category" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MediaTypes">
               <PropertyRef Name="MediaTypeId" />
@@ -143,10 +143,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_FileInDbs_dbo_Categories_CategoryId">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="FileInDbs" Type="Self.FileInDbs" Multiplicity="*" />
+          <End Role="FileInDbs" Type="Self.FileInDb" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
@@ -158,9 +158,9 @@
         </Association>
         <EntityContainer Name="DigitalMediaLibraryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="Categories" EntityType="Self.Categories" />
-          <EntitySet Name="FileInDbs" EntityType="Self.FileInDbs" />
-          <EntitySet Name="MediaTypes" EntityType="Self.MediaTypes" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="FileInDbs" EntityType="Self.FileInDb" />
+          <EntitySet Name="MediaTypes" EntityType="Self.MediaType" />
           <AssociationSet Name="FK_dbo_Categories_dbo_MediaTypes_MediaTypeId" Association="Self.FK_dbo_Categories_dbo_MediaTypes_MediaTypeId">
             <End Role="MediaTypes" EntitySet="MediaTypes" />
             <End Role="Categories" EntitySet="Categories" />
@@ -187,7 +187,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="DigitalMediaLibraryModel.Categories">
+            <EntityTypeMapping TypeName="DigitalMediaLibraryModel.Category">
               <MappingFragment StoreEntitySet="Categories">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -196,7 +196,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FileInDbs">
-            <EntityTypeMapping TypeName="DigitalMediaLibraryModel.FileInDbs">
+            <EntityTypeMapping TypeName="DigitalMediaLibraryModel.FileInDb">
               <MappingFragment StoreEntitySet="FileInDbs">
                 <ScalarProperty Name="FileInDbId" ColumnName="FileInDbId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -208,7 +208,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MediaTypes">
-            <EntityTypeMapping TypeName="DigitalMediaLibraryModel.MediaTypes">
+            <EntityTypeMapping TypeName="DigitalMediaLibraryModel.MediaType">
               <MappingFragment StoreEntitySet="MediaTypes">
                 <ScalarProperty Name="MediaTypeId" ColumnName="MediaTypeId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -229,7 +229,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

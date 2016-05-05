@@ -12,18 +12,20 @@ namespace DigitalMediaLibraryData
     using System;
     using System.Collections.Generic;
     
-    public partial class MediaTypes
+    public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MediaTypes()
+        public Category()
         {
-            this.Categories = new HashSet<Categories>();
+            this.FileInDbs = new HashSet<FileInDb>();
         }
     
-        public int MediaTypeId { get; set; }
+        public int CategoryId { get; set; }
         public string Name { get; set; }
+        public int MediaTypeId { get; set; }
     
+        public virtual MediaType MediaType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Categories> Categories { get; set; }
+        public virtual ICollection<FileInDb> FileInDbs { get; set; }
     }
 }

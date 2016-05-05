@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using DigitalMediaLibrary.Models;
+using DigitalMediaLibraryData.Models;
 
 namespace DigitalMediaLibrary.explorer
 {
