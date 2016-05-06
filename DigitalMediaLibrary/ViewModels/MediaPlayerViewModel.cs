@@ -26,6 +26,7 @@ namespace DigitalMediaLibrary.ViewModels
         }
 
         private string _currentMediaType;
+        private string _currentExpansion;
         public List<MediaElement> Media { get; set; }
 
         #region Visibility
@@ -88,20 +89,26 @@ namespace DigitalMediaLibrary.ViewModels
 
         public void Handle(string[] message)
         {
-            Media[0].Source = new Uri(message[0]);
-            _currentMediaType = message[1];
-            Start();
+            if (message[0] != "DB")
+            {
+                Media[0].Source = new Uri(message[0]);
+                _currentMediaType = message[1];
+                Start();
+            }
+            else
+            {
+                _currentMediaType = message[1];
+                _currentExpansion = message[2];
+            }
         }
 
         public void Handle(byte[] message)
         {
-           // Stream stream = new MemoryStream(message);
-            using (Stream file = File.OpenWrite("./here"))
+            using (Stream file = File.OpenWrite("./file" + _currentExpansion))
             {
                 file.Write(message, 0, message.Length);
             }
-            Media[0].Source = new Uri("./here");
-            _currentMediaType = "audio";
+            Media[0].Source = new Uri("./file" + _currentExpansion, UriKind.Relative);
             Start();
         }
     }

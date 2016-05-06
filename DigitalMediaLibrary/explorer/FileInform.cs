@@ -34,7 +34,6 @@ namespace DigitalMediaLibrary.explorer
                 ExpType = "video";
             if (_imgExt.Contains(fileobj.Extension))
                 ExpType = "img";
-            FileSourse = File.ReadAllBytes(fileobj.FullName);
         }
         //for DB Explorer
         public FileInform(FileInDb fileobj)

@@ -41,9 +41,10 @@ namespace DigitalMediaLibrary.ViewModels
                 {
                     _selecItem = value;
                     if (_selecItem.Path !="DB")
-                        _events.PublishOnUIThread(new[] { _selecItem.Path, _selecItem.ExpType});
+                        _events.PublishOnUIThread(new[] { _selecItem.Path, _selecItem.ExpType, _selecItem.Expansion });
                     else
                     {
+                        _events.PublishOnUIThread(new[] { _selecItem.Path, _selecItem.ExpType, _selecItem.Expansion });
                         _events.PublishOnUIThread(_selecItem.FileSourse);
                     }
                 }
@@ -140,6 +141,10 @@ namespace DigitalMediaLibrary.ViewModels
                         _choiseCategory.ShowDialog();
                     }
                 }
+            else
+            {
+                MessageBox.Show("Файл уже находится в базе");
+            }
         }
         // Save in db
         public static void JustSaveInDb(string categoryName)
@@ -158,8 +163,8 @@ namespace DigitalMediaLibrary.ViewModels
                             DateOfCreation = _selecItem.DateOfCreation,
                             Expansion = _selecItem.Expansion,
                             Size = _selecItem.Size,
-                            FileSourse = _selecItem.FileSourse
-                        }
+                            FileSourse = File.ReadAllBytes(_selecItem.Path)
+                }
                     };
                 }
                 db.SaveChanges();

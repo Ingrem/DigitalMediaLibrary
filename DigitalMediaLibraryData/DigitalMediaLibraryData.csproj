@@ -105,9 +105,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DigitalMediaLibraryModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="App.Config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.Config" />
     <None Include="DigitalMediaLibraryModel.edmx.diagram">
       <DependentUpon>DigitalMediaLibraryModel.edmx</DependentUpon>
     </None>

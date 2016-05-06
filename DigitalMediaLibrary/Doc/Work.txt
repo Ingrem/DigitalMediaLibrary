@@ -1,3 +1,11 @@
-﻿работа плеера для содержимого БД
+﻿дропнуть базу
 Сохранить область из БД при закрытии // загрузить дерево директорий из файла
 Не селектится элементы листбокса на dirviewer
+
+  <entityFramework>
+    <contexts>
+      <context type="DigitalMediaLibraryData.Models.LibraryContext, DigitalMediaLibraryData">
+        <databaseInitializer type="DigitalMediaLibraryData.Models.LibraryInitializer, DigitalMediaLibraryData" />
+      </context>
+    </contexts>
+  </entityFramework>

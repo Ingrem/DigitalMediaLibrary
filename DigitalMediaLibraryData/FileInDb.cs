@@ -19,8 +19,8 @@ namespace DigitalMediaLibraryData
         public string Expansion { get; set; }
         public string DateOfCreation { get; set; }
         public string Size { get; set; }
+        public byte[] FileSourse { get; set; }
         public int CategoryId { get; set; }
-        public string FileSourse { get; set; }
     
         public virtual Category Category { get; set; }
     }
