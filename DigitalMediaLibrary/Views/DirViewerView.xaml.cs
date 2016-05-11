@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Caliburn.Micro;
+using DigitalMediaLibrary.ViewModels;
+using DigitalMediaLibrary.explorer;
 
 namespace DigitalMediaLibrary.Views
 {
     /// <summary>
     /// Interaction logic for DirViewerView.xaml
     /// </summary>
-    public partial class DirViewerView : UserControl
+    public partial class DirViewerView
     {
         public DirViewerView()
         {
@@ -27,6 +18,18 @@ namespace DigitalMediaLibrary.Views
         private void SaveInDb_Click(object sender, RoutedEventArgs e)
         {
             ViewModels.DirViewerViewModel.FormingCategoryChoiser();
+        }
+
+        private void CurrentItems_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            FileInform selecItem = (FileInform) CurrentItems.SelectedItem;
+            if (selecItem.Path != "DB")
+                DirViewerViewModel._events.PublishOnUIThread(new[] { selecItem.Path, selecItem.ExpType, selecItem.Expansion });
+            else
+            {
+                DirViewerViewModel._events.PublishOnUIThread(new[] { selecItem.Path, selecItem.ExpType, selecItem.Expansion });
+                DirViewerViewModel._events.PublishOnUIThread(selecItem.FileSourse);
+            }
         }
     }
 }

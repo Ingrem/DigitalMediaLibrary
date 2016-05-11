@@ -141,11 +141,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Doc\Letter.txt" />
-    <Resource Include="Doc\Task.txt" />
-    <Resource Include="Doc\Work.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DigitalMediaLibraryData\DigitalMediaLibraryData.csproj">
       <Project>{7ffdc445-b3ae-4ad4-8408-7505c562a3cd}</Project>
       <Name>DigitalMediaLibraryData</Name>
@@ -184,9 +179,6 @@
     <Resource Include="Imgs\audio.png" />
     <Resource Include="Imgs\movies.png" />
     <Resource Include="Imgs\png.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Doc\tmp.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

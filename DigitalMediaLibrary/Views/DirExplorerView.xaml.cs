@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,12 +26,20 @@ namespace DigitalMediaLibrary.Views
                 item.Expanded += folder_Expanded;
                 foldersItem.Items.Add(item);
             }
+            using (LibraryContext db = new LibraryContext())
+            {
+                var categorys = db.Categorys.ToList();
+                var tmpMediaType = db.MediaTypes.ToList();
+                foreach (MediaType u in tmpMediaType)
+                    DbTreeView.Items.Add(u);
+            } 
             DeserializeTreeView(Properties.Resources.SaveExplorerXML);
             Dispatcher.ShutdownStarted += Window_Closing;
         }
 
         private readonly object _dummyNode = null;
         private string SelectedImagePath { get; set; }
+        private string _currentCategoryInDb = "";
         //Create tree nodes from dir treeview
         private void folder_Expanded(object sender, RoutedEventArgs e)
         {
@@ -93,6 +102,7 @@ namespace DigitalMediaLibrary.Views
             try
             {
                 var temp = ((Category)tree.SelectedItem);
+                _currentCategoryInDb = temp.Name;
                 DirExplorerViewModel.SelectedinDbChanged(temp.Name);
             }
             catch (Exception)
@@ -100,7 +110,8 @@ namespace DigitalMediaLibrary.Views
                 // ignored
             }
         }
-        #region Save Dir Treeview
+
+        #region Save Treeview
         private void Window_Closing(object sender, EventArgs e)
         {
             using (new MemoryStream())
@@ -110,11 +121,22 @@ namespace DigitalMediaLibrary.Views
                     wr.Formatting = Formatting.Indented;
                     wr.WriteStartDocument();
                     wr.WriteStartElement("Tree");
-                    foreach (TreeViewItem dataNode in foldersItem.Items)
-                            TreeRunner(wr, dataNode);
-                    wr.WriteStartElement("SelectedImagePath");
-                    wr.WriteAttributeString("SelectedImagePath", SelectedImagePath);
-                    wr.WriteEndElement();
+                    // save DB tree
+                    if (DbTree.IsSelected)
+                    {
+                        wr.WriteStartElement("Category");
+                        wr.WriteAttributeString("Category", _currentCategoryInDb);
+                        wr.WriteEndElement();
+                    }
+                    // save explorer tree
+                    else
+                    {
+                        foreach (TreeViewItem dataNode in foldersItem.Items)
+                            TreeRunnerSave(wr, dataNode);
+                        wr.WriteStartElement("SelectedImagePath");
+                        wr.WriteAttributeString("SelectedImagePath", SelectedImagePath);
+                        wr.WriteEndElement();
+                    }
                     wr.WriteEndElement();
                     wr.WriteEndDocument();
                     wr.Flush();
@@ -122,10 +144,10 @@ namespace DigitalMediaLibrary.Views
             }
         }
 
-        private void TreeRunner(XmlTextWriter wr, TreeViewItem dataNode)
+        private void TreeRunnerSave(XmlTextWriter wr, TreeViewItem dataNode)
         {
             if (dataNode.Items.Count>0)
-            if (dataNode.Items[0] != null)
+            if (dataNode.IsExpanded)
             {
                 wr.WriteStartElement("Node");
                 wr.WriteAttributeString("Node", dataNode.Header.ToString());
@@ -133,7 +155,22 @@ namespace DigitalMediaLibrary.Views
             }
             foreach (TreeViewItem dataNo in dataNode.Items)
                 if (dataNo != null)
-                    TreeRunner(wr, dataNo);
+                    TreeRunnerSave(wr, dataNo);
+        }
+
+        private void TreeRunnerLoad(string nodeForExpand, TreeViewItem dataNode)
+        {
+            foreach (TreeViewItem dataNo in dataNode.Items)
+            {
+                if (dataNo.Header.ToString() == nodeForExpand)
+                {
+                    dataNo.IsExpanded = true;
+                }
+                if (dataNo.IsExpanded)
+                {
+                    TreeRunnerLoad(nodeForExpand, dataNo);
+                }
+            }
         }
 
         private void DeserializeTreeView(string fileName)
@@ -146,18 +183,34 @@ namespace DigitalMediaLibrary.Views
                 {
                     if (reader.NodeType == XmlNodeType.Element)
                     {
+                        //for load from explorer
                         if (reader.Name == "Node")
                         {
                             reader.MoveToAttribute("Node");
-                           // foldersItem.FindName("reader.Value");
-                           //  folder_Expanded(foldersItem.Items[1],new RoutedEventArgs());
+                            foreach (TreeViewItem dataNo in foldersItem.Items)
+                            {
+                                if (dataNo.Header.ToString() == reader.Value)
+                                    dataNo.IsExpanded = true;
+
+                                if (dataNo.IsExpanded)
+                                    TreeRunnerLoad(reader.Value, dataNo);
+                            }
                         }
+                        // for load from explorer
                         if (reader.Name == "SelectedImagePath")
                         {
                             reader.MoveToAttribute("SelectedImagePath");
 
                             SelectedImagePath = reader.Value;
                             DirExplorerViewModel.ChangeDirEvent(SelectedImagePath);
+                        }
+                        // for load from DB
+                        if (reader.Name == "Category")
+                        {
+                            DbTree.IsSelected = true;
+                            reader.MoveToAttribute("Category");
+                            DirExplorerViewModel.SelectedinDbChanged(reader.Value);
+                            _currentCategoryInDb = reader.Value;
                         }
                     }
                     else if (reader.NodeType == XmlNodeType.XmlDeclaration)
@@ -170,14 +223,15 @@ namespace DigitalMediaLibrary.Views
                     }
                 }
             }
+            
             catch (Exception)
             {
                 // ignored
             }
             finally
             {
-                reader?.Close();
-            }
+                reader.Close();
+            } 
         }
         #endregion
     }

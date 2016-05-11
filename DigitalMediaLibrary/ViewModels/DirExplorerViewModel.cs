@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
+﻿using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using DigitalMediaLibrary.explorer;
-using DigitalMediaLibraryData.Models;
 
 namespace DigitalMediaLibrary.ViewModels
 {
@@ -17,31 +14,7 @@ namespace DigitalMediaLibrary.ViewModels
         }
 
         public static readonly HeaderToImageConverter Instance = new HeaderToImageConverter();
-        private List<MediaType> _treeViewSource = new List<MediaType>();
         private static IEventAggregator _events;
-
-        public List<MediaType> TreeViewSource
-        {
-            get
-            {
-                using (LibraryContext db = new LibraryContext())
-                {
-                    var categorys = db.Categorys.ToList();
-                    var tmpMediaType = db.MediaTypes.ToList();
-                    foreach (MediaType u in tmpMediaType)
-                        _treeViewSource.Add(u);
-                }
-                return _treeViewSource;
-            }
-            set
-            {
-                if (_treeViewSource != value)
-                {
-                    _treeViewSource = value;
-                    NotifyOfPropertyChange(() => TreeViewSource);
-                }
-            }
-        }
 
         public static void SelectedinDbChanged(string categoryName)
         {

@@ -3,17 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DigitalMediaLibrary.Views"
-             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" >
     <UserControl.Resources>
-
-        <Style TargetType="ListBoxItem">
-            <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent"/>
-            </Style.Resources>
-        </Style>
 
         <Style x:Key="NormalTextBlockStyle">
             <Setter Property="TextBlock.Width" Value="75"></Setter>
@@ -29,7 +20,7 @@
             <Label HorizontalAlignment="Left" 
                    Background="Transparent" 
                    DataContext="{Binding}"
-                   IsTabStop="True" BorderThickness="1" >
+                   BorderThickness="0" >
                 <Label.Content>
                     <DockPanel>
                         <Image DockPanel.Dock="Top" VerticalAlignment="Center"
@@ -76,9 +67,10 @@
     </UserControl.Resources>
 
     <Grid>
-        <ListBox x:Name="CurrentItems"  
+        <ListBox x:Name="CurrentItems"
                  ItemTemplate="{StaticResource DirViewTemplate}" BorderThickness="0" 
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding Path=SelecItem}">
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectedItem="{Binding Path=SelecItem}"
+                 MouseDoubleClick="CurrentItems_OnMouseDoubleClick">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" ItemWidth="110" ItemHeight="130"></WrapPanel>

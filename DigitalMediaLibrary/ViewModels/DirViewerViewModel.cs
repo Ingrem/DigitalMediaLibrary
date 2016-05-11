@@ -23,7 +23,7 @@ namespace DigitalMediaLibrary.ViewModels
             events.Subscribe(this);
         }
 
-        private static IEventAggregator _events;
+        public static IEventAggregator _events;
         private IList<FileInform> _currentItems;
         private FileInform _currentDirectory;
         private FileInform _currentCategoryFromDb;
@@ -164,9 +164,10 @@ namespace DigitalMediaLibrary.ViewModels
                             Expansion = _selecItem.Expansion,
                             Size = _selecItem.Size,
                             FileSourse = File.ReadAllBytes(_selecItem.Path)
-                }
+                        }
                     };
                 }
+              //  db.Files.RemoveRange(db.Files);
                 db.SaveChanges();
             }
             _choiseCategory.Close();
